@@ -1,4 +1,4 @@
-FROM python:3.10-slim
+FROM ubuntu:latest
 
 LABEL maintainer="Catalyst Squad <community@catalystsquad.com>"
 
@@ -9,7 +9,8 @@ ARG DOCKER_CHANNEL=stable
 ARG DOCKER_VERSION=20.10.12
 ARG DUMB_INIT_VERSION=1.2.5
 
-# Get all the Python tools in and up to date
+# Get all the tools in and up to date
+ENV DEBIAN_FRONTEND=noninteractive
 RUN apt update -y \
     && apt-get install -y software-properties-common \
     && add-apt-repository -y ppa:git-core/ppa \
@@ -33,9 +34,10 @@ RUN apt update -y \
     netcat \
     openssh-client \
     parallel \
+    python3 \
+    python3-pip \
     rsync \
     shellcheck \
-    software-properties-common \
     sqlite3 \
     sudo \
     telnet \
