@@ -9,7 +9,8 @@ RUN apt-get update -y && \
     apt-get upgrade -y && \
     apt-get install -y python3-pip python3-dev sqlite3 inotify-tools \
         curl apt-utils git wait-for-it apt-transport-https ca-certificates \
-        gnupg2 software-properties-common apt-transport-https jq apache2-utils
+        gnupg2 software-properties-common apt-transport-https jq apache2-utils \
+        unzip
 
 RUN curl -fsSL https://download.docker.com/linux/debian/gpg | apt-key add -
 RUN add-apt-repository \
@@ -44,7 +45,7 @@ RUN curl -sL https://aka.ms/InstallAzureCLIDeb | bash
 # Installl helm
 RUN curl https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 | bash
 # Install helm stable repo
-RUN helm repo add stable https://kubernetes-charts.storage.googleapis.com/
+RUN helm repo add stable https://charts.helm.sh/stable
 
 # Anything one wants to run in this runner that needs to be exposed can on this port
 EXPOSE 6000
