@@ -138,7 +138,7 @@ COPY ./scripts/gh_entrypoint.sh ./scripts/logger.bash /usr/bin/
 
 # Add the Python "User Script Directory" to the PATH
 ENV PATH="${PATH}:${HOME}/.local/bin"
-ENV ImageOS=ubuntu20
+ENV ImageOS=ubuntu22
 
 RUN echo "PATH=${PATH}" > /etc/environment \
     && echo "ImageOS=${ImageOS}" >> /etc/environment
