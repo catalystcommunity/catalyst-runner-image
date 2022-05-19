@@ -1,0 +1,63 @@
+name: Semantic Release
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "provider/**"
+      - "schema.yaml"
+      - "sdk/**"
+jobs:
+  semantic-release:
+    name: Semantic Release
+    runs-on: ubuntu-latest
+    outputs:
+      new_release_published: "${{ steps.release.outputs.new_release_published }}"
+      new_release_version: "${{ steps.release.outputs.new_release_version }}"
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.AUTOMATION_PAT }}
+      - name: Release
+        id: release
+        uses: cycjimmy/semantic-release-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.AUTOMATION_PAT }}
+        with:
+          extra_plugins: |
+            conventional-changelog-conventionalcommits
+            @semantic-release/commit-analyzer
+            @semantic-release/release-notes-generator
+            @semantic-release/changelog
+            @semantic-release/exec
+            @semantic-release/git
+            @semantic-release/github
+      # create an extra tag for the SDK go module
+      - if: steps.release.outputs.new_release_published == 'true'
+        uses: rickstaa/action-create-tag@v1
+        name: Create SDK tag
+        with:
+          tag: "sdk/${{ steps.release.outputs.new_release_version }}"
+  releases-matrix:
+    needs: [ semantic-release ]
+    if: needs.semantic-release.outputs.new_release_published == 'true'
+    name: Release Go Binary
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        goos: [linux, darwin]
+        goarch: [amd64]
+    steps:
+      - uses: actions/checkout@v3
+      - uses: wangyoucao577/go-release-action@v1.28
+        with:
+          github_token: ${{ secrets.AUTOMATION_PAT }}
+          goos: ${{ matrix.goos }}
+          goarch: ${{ matrix.goarch }}
+          goversion: 1.18
+          pre_command: make build_provider
+          release_tag: "v${{ needs.semantic-release.outputs.new_release_version }}"
+          project_path: "provider/cmd/pulumi-resource-catalystsquad-platform"
+          binary_name: "pulumi-resource-catalystsquad-platform"
+          ldflags: "-X github.com/catalystsquad/pulumi-catalystsquad-platform/provider/pkg/version.Version=${{ needs.semantic-release.outputs.new_release_version }}"
