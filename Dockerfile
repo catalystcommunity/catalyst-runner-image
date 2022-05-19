@@ -7,7 +7,7 @@ WORKDIR /workspace/
 # Get all the Python tools in and up to date
 RUN apt-get update -y && \
     apt-get upgrade -y && \
-    apt-get install -y python3-pip python3-dev sqlite3 inotify-tools \
+    apt-get install -y sqlite3 inotify-tools \
         curl apt-utils git wait-for-it apt-transport-https ca-certificates \
         gnupg2 software-properties-common apt-transport-https jq apache2-utils \
         unzip
@@ -20,7 +20,7 @@ RUN add-apt-repository \
 RUN apt-get update -y && apt-get install  -y docker-ce
 
 RUN pip3 install --upgrade pip
-RUN pip3 install setuptools gunicorn waitress watchdog bumpversion poetry docker-compose yq yamllint
+RUN pip3 install setuptools watchdog poetry docker-compose yq yamllint
 
 # Get all the node tooling in with 12.x
 RUN curl -sL https://deb.nodesource.com/setup_12.x | bash -
