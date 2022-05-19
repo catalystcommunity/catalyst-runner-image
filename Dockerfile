@@ -108,6 +108,8 @@ RUN set -vx; \
 
 ENV HOME=/home/runner
 
+COPY scripts/install_actions.sh /actions-runner/
+
 ENV RUNNER_ASSETS_DIR=/runnertmp
 RUN export ARCH=$(echo ${TARGETPLATFORM} | cut -d / -f2) \
     && if [ "$ARCH" = "amd64" ] || [ "$ARCH" = "x86_64" ] || [ "$ARCH" = "i386" ]; then export ARCH=x64 ; fi \
@@ -117,7 +119,10 @@ RUN export ARCH=$(echo ${TARGETPLATFORM} | cut -d / -f2) \
     && curl -f -L -o runner.tar.gz https://github.com/actions/runner/releases/download/v${RUNNER_VERSION}/actions-runner-linux-${ARCH}-${RUNNER_VERSION}.tar.gz \
     && tar xzf ./runner.tar.gz \
     && rm runner.tar.gz \
-    && ./bin/installdependencies.sh \
+    && chmod +x /actions-runner/install_actions.sh \
+    && sed -i.bak 's/.\/bin\/installdependencies.sh/wget https:\/\/raw.githubusercontent.com\/myoung34\/runner\/main\/src\/Misc\/layoutbin\/installdependencies.sh -O .\/bin\/installdependencies.sh; bash .\/bin\/installdependencies.sh/g' /actions-runner/install_actions.sh \
+    && /actions-runner/install_actions.sh ${RUNNER_VERSION} ${TARGETPLATFORM} \
+    && rm /actions-runner/install_actions.sh \
     && mv ./externals ./externalstmp \
     && apt-get install -y libyaml-dev \
     && rm -rf /var/lib/apt/lists/*
