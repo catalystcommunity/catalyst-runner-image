@@ -61,7 +61,7 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 # TODO: remove this terrible sed once
 #  https://github.com/actions/runner/pull/1585 is merged or similar
-RUN sed -i.bak 's/.\/bin\/installdependencies.sh/wget https:\/\/raw.githubusercontent.com\/myoung34\/runner\/main\/src\/Misc\/layoutbin\/installdependencies.sh -O .\/bin\/installdependencies.sh; bash .\/bin\/installdependencies.sh/g' /actions-runner/install_actions.sh \
+RUN sed -i.bak 's/.\/bin\/installdependencies.sh/wget https:\/\/raw.githubusercontent.com\/myoung34\/runner\/main\/src\/Misc\/layoutbin\/installdependencies.sh -O .\/bin\/installdependencies.sh; bash .\/bin\/installdependencies.sh/g' ./scripts/install_actions.sh \
   && ./scripts/install_actions.sh ${GH_RUNNER_VERSION} ${TARGETPLATFORM} \
   && rm ./scripts/install_actions.sh
 
