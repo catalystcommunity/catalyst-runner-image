@@ -106,7 +106,7 @@ RUN set -vx; \
     && usermod -aG docker runner \
     && echo "%sudo   ALL=(ALL:ALL) NOPASSWD:ALL" > /etc/sudoers
 
-ENV HOME=/home/runner
+ENV HOME=/workspace
 
 COPY scripts/install_actions.sh /actions-runner/
 
