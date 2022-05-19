@@ -7,7 +7,7 @@ WORKDIR /workspace
 # Get all the Python tools in and up to date
 RUN apt-get update -y && \
     apt-get upgrade -y && \
-    apt-get install -y sqlite3 inotify-tools \
+    apt-get install -y sqlite3 inotify-tools wget \
         curl apt-utils git wait-for-it apt-transport-https ca-certificates \
         gnupg2 software-properties-common apt-transport-https jq apache2-utils \
         unzip
