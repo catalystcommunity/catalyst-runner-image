@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/catalystsquad/catalyst-runner-image/compare/v1.0.1...v1.1.0) (2022-05-19)
+
+
+### Features
+
+* add github runner from myoung34 example ([#4](https://github.com/catalystsquad/catalyst-runner-image/issues/4)) ([db9c666](https://github.com/catalystsquad/catalyst-runner-image/commit/db9c666c8f4d6c244d123d15ce811ab4e5fd11e3))
+
 ## [1.0.1](https://github.com/catalystsquad/catalyst-runner-image/compare/v1.0.0...v1.0.1) (2022-05-19)
 
 
