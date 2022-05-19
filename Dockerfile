@@ -1,15 +1,16 @@
-FROM python:3.7-slim
+FROM python:3.10-slim
 
-LABEL maintainer="TnL Community <tnlcommunity@todandlorna.com>"
+LABEL maintainer="Catalyst Squad <community@catalystsquad.com>"
 
-WORKDIR /root/app/
+WORKDIR /workspace/
 
 # Get all the Python tools in and up to date
 RUN apt-get update -y && \
     apt-get upgrade -y && \
     apt-get install -y python3-pip python3-dev sqlite3 inotify-tools \
         curl apt-utils git wait-for-it apt-transport-https ca-certificates \
-        gnupg2 software-properties-common apt-transport-https jq apache2-utils
+        gnupg2 software-properties-common apt-transport-https jq apache2-utils \
+        unzip
 
 RUN curl -fsSL https://download.docker.com/linux/debian/gpg | apt-key add -
 RUN add-apt-repository \
@@ -17,8 +18,9 @@ RUN add-apt-repository \
    $(lsb_release -cs) \
    stable"
 RUN apt-get update -y && apt-get install  -y docker-ce
+
 RUN pip3 install --upgrade pip
-RUN pip3 install setuptools gunicorn waitress watchdog bumpversion poetry docker-compose yq
+RUN pip3 install setuptools gunicorn waitress watchdog bumpversion poetry docker-compose yq yamllint
 
 # Get all the node tooling in with 12.x
 RUN curl -sL https://deb.nodesource.com/setup_12.x | bash -
@@ -33,12 +35,17 @@ RUN curl -LO https://storage.googleapis.com/kubernetes-release/release/`curl -s 
 COPY ./scripts ./scripts
 RUN chmod +x ./scripts/*
 
+# Install gcloud CLI
 RUN ./scripts/install_gcloud.sh
+# Install AWS CLI
+RUN ./scripts/install_aws.sh
+# Install the Azure CLI
+RUN curl -sL https://aka.ms/InstallAzureCLIDeb | bash 
 
 # Installl helm
 RUN curl https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 | bash
 # Install helm stable repo
-RUN helm repo add stable https://kubernetes-charts.storage.googleapis.com/
+RUN helm repo add stable https://charts.helm.sh/stable
 
 # Anything one wants to run in this runner that needs to be exposed can on this port
 EXPOSE 6000

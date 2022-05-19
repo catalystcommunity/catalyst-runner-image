@@ -1,0 +1,26 @@
+{
+  "branches": ["main"],
+  "ci": false,
+  "plugins": [
+    ["@semantic-release/commit-analyzer", {
+        "preset": "conventionalcommits",
+        "releaseRules": [{ "scope": "norelease", "release": false }]
+    }],
+    "@semantic-release/release-notes-generator",
+    "@semantic-release/changelog",
+    ["@semantic-release/exec", {
+        "prepareCmd": "sed -i '0,/^version:.*/s//version: ${nextRelease.version}/' version.yaml"
+    }],
+    ["@semantic-release/git", {
+        "assets": ["CHANGELOG.md", "version.yaml"],
+        "message": "chore(release): ${nextRelease.version} \n\n${nextRelease.notes}"
+    }],
+    "@semantic-release/github",
+    ["@codedependant/semantic-release-docker", {
+        "dockerTags": ["latest", "{{version}}", "{{major}}-latest", "{{major}}.{{minor}}"],
+        "dockerProject": "catalystsquad",
+        "dockerImage": "catalyst-runner-image",
+        "dockerRegistry": "quay.io"
+    }]
+  ] 
+}
