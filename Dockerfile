@@ -1,6 +1,6 @@
-FROM python:3.7-slim
+FROM python:3.10-slim
 
-LABEL maintainer="TnL Community <tnlcommunity@todandlorna.com>"
+LABEL maintainer="Catalyst Squad <community@catalystsquad.com>"
 
 WORKDIR /root/app/
 
@@ -17,8 +17,9 @@ RUN add-apt-repository \
    $(lsb_release -cs) \
    stable"
 RUN apt-get update -y && apt-get install  -y docker-ce
+
 RUN pip3 install --upgrade pip
-RUN pip3 install setuptools gunicorn waitress watchdog bumpversion poetry docker-compose yq
+RUN pip3 install setuptools gunicorn waitress watchdog bumpversion poetry docker-compose yq yamllint
 
 # Get all the node tooling in with 12.x
 RUN curl -sL https://deb.nodesource.com/setup_12.x | bash -
@@ -33,7 +34,12 @@ RUN curl -LO https://storage.googleapis.com/kubernetes-release/release/`curl -s 
 COPY ./scripts ./scripts
 RUN chmod +x ./scripts/*
 
+# Install gcloud CLI
 RUN ./scripts/install_gcloud.sh
+# Install AWS CLI
+RUN ./scripts/install_aws.sh
+# Install the Azure CLI
+RUN curl -sL https://aka.ms/InstallAzureCLIDeb | bash 
 
 # Installl helm
 RUN curl https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 | bash
