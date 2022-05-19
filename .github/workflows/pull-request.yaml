@@ -4,8 +4,7 @@ on:
     branches:
       - main
     paths:
-      - "provider/**"
-      - "schema.yaml"
+      - "Dockerfile"
 jobs:
   conventional-commits-pr:
     if: "github.event.pull_request.draft == false && !contains(github.event.head_commit.message, 'chore: apply automatic generated SDK changes')"
