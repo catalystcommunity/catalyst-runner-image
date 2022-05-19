@@ -2,7 +2,7 @@ FROM python:3.10-slim
 
 LABEL maintainer="Catalyst Squad <community@catalystsquad.com>"
 
-WORKDIR /root/app/
+WORKDIR /workspace/
 
 # Get all the Python tools in and up to date
 RUN apt-get update -y && \
