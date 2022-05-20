@@ -135,6 +135,7 @@ RUN mkdir /opt/hostedtoolcache \
 # We place the scripts in `/usr/bin` so that users who extend this image can
 # override them with scripts of the same name placed in `/usr/local/bin`.
 COPY ./scripts/gh_entrypoint.sh ./scripts/logger.bash /usr/bin/
+RUN chmod +x /usr/bin/gh_entrypoint.sh /usr/bin/logger.bash
 
 # Add the Python "User Script Directory" to the PATH
 ENV PATH="${PATH}:${HOME}/.local/bin"
