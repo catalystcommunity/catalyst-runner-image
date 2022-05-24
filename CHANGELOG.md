@@ -1,3 +1,10 @@
+## [1.1.3](https://github.com/catalystsquad/catalyst-runner-image/compare/v1.1.2...v1.1.3) (2022-05-24)
+
+
+### Bug Fixes
+
+* add ownership for workspace folder ([#10](https://github.com/catalystsquad/catalyst-runner-image/issues/10)) ([c43c31a](https://github.com/catalystsquad/catalyst-runner-image/commit/c43c31a902779fb9d3031c4b7b7d55a8709635a5))
+
 ## [1.1.2](https://github.com/catalystsquad/catalyst-runner-image/compare/v1.1.1...v1.1.2) (2022-05-20)
 
 
