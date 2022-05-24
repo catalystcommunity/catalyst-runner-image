@@ -104,7 +104,8 @@ RUN set -vx; \
     && groupadd docker \
     && usermod -aG sudo runner \
     && usermod -aG docker runner \
-    && echo "%sudo   ALL=(ALL:ALL) NOPASSWD:ALL" > /etc/sudoers
+    && echo "%sudo   ALL=(ALL:ALL) NOPASSWD:ALL" > /etc/sudoers \
+    && chown -R runner:runner /workspace
 
 ENV HOME=/workspace
 
