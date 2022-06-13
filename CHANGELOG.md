@@ -1,3 +1,10 @@
+# [1.2.0](https://github.com/catalystsquad/catalyst-runner-image/compare/v1.1.3...v1.2.0) (2022-06-13)
+
+
+### Features
+
+* Add Terraform to DockerFile ([#11](https://github.com/catalystsquad/catalyst-runner-image/issues/11)) ([dcf02e8](https://github.com/catalystsquad/catalyst-runner-image/commit/dcf02e831e6838ffb227a64e898178ff99e355e2))
+
 ## [1.1.3](https://github.com/catalystsquad/catalyst-runner-image/compare/v1.1.2...v1.1.3) (2022-05-24)
 
 
