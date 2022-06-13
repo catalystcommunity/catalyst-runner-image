@@ -74,8 +74,10 @@ RUN ./scripts/install_gcloud.sh
 RUN ./scripts/install_aws.sh
 # Install the Azure CLI
 RUN curl -sL https://aka.ms/InstallAzureCLIDeb | bash 
+# Install Terraform CLI
+RUN ./scripts/install_terraform.sh
 
-# Installl helm
+# Install helm
 RUN curl https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 | bash
 # Install helm stable repo
 RUN helm repo add stable https://charts.helm.sh/stable
