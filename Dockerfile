@@ -36,6 +36,8 @@ RUN apt update -y \
     parallel \
     python3 \
     python3-pip \
+    dotnet-sdk-6.0 \
+    aspnetcore-runtime-6.0 \
     rsync \
     shellcheck \
     sqlite3 \
