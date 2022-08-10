@@ -1,3 +1,10 @@
+## [1.2.2](https://github.com/catalystsquad/catalyst-runner-image/compare/v1.2.1...v1.2.2) (2022-08-10)
+
+
+### Bug Fixes
+
+* add docker compose ([#13](https://github.com/catalystsquad/catalyst-runner-image/issues/13)) ([2edb52c](https://github.com/catalystsquad/catalyst-runner-image/commit/2edb52c385ec7b2721027a80dfd15838f49cc353))
+
 ## [1.2.1](https://github.com/catalystsquad/catalyst-runner-image/compare/v1.2.0...v1.2.1) (2022-08-10)
 
 
