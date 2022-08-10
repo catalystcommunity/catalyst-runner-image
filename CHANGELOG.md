@@ -1,3 +1,10 @@
+## [1.2.1](https://github.com/catalystsquad/catalyst-runner-image/compare/v1.2.0...v1.2.1) (2022-08-10)
+
+
+### Bug Fixes
+
+* add dotnet sdk ([#12](https://github.com/catalystsquad/catalyst-runner-image/issues/12)) ([4d8705f](https://github.com/catalystsquad/catalyst-runner-image/commit/4d8705f8013444dc5a621f73751651a5558b38cf))
+
 # [1.2.0](https://github.com/catalystsquad/catalyst-runner-image/compare/v1.1.3...v1.2.0) (2022-06-13)
 
 
