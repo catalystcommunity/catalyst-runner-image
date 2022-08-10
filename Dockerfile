@@ -38,6 +38,7 @@ RUN apt update -y \
     python3-pip \
     dotnet-sdk-6.0 \
     aspnetcore-runtime-6.0 \
+    docker-compose \
     rsync \
     shellcheck \
     sqlite3 \
