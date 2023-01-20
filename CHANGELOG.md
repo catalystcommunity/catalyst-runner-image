@@ -1,3 +1,10 @@
+# [1.3.0](https://github.com/catalystsquad/catalyst-runner-image/compare/v1.2.2...v1.3.0) (2023-01-20)
+
+
+### Features
+
+* Add Go to Runner Image ([#15](https://github.com/catalystsquad/catalyst-runner-image/issues/15)) ([0d7a4d6](https://github.com/catalystsquad/catalyst-runner-image/commit/0d7a4d6bfee033ef103c72a850ec2df62cee7da2))
+
 ## [1.2.2](https://github.com/catalystsquad/catalyst-runner-image/compare/v1.2.1...v1.2.2) (2022-08-10)
 
 
