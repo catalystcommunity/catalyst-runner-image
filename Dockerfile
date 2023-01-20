@@ -8,6 +8,7 @@ ARG RUNNER_VERSION=2.291.1
 ARG DOCKER_CHANNEL=stable
 ARG DOCKER_VERSION=20.10.12
 ARG DUMB_INIT_VERSION=1.2.5
+ARG GO_VERSION=1.19.5
 
 # Get all the tools in and up to date
 ENV DEBIAN_FRONTEND=noninteractive
@@ -63,6 +64,10 @@ RUN curl -sL https://deb.nodesource.com/setup_16.x | bash -
 RUN apt-get install -y nodejs
 
 RUN npm install -g yarn
+
+
+# Install Go
+RUN wget https://golang.org/dl/go${GO_VERSION}.linux-amd64.tar.gz && tar -xf go${GO_VERSION}.linux-amd64.tar.gz && chown -R root:root ./go && mv -v go /usr/local
 
 # Install kubectl (last of the basics because this version will change often)
 RUN curl -LO https://storage.googleapis.com/kubernetes-release/release/`curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt`/bin/linux/amd64/kubectl && chmod +x kubectl && mv kubectl /usr/local/bin/
@@ -143,8 +148,9 @@ RUN mkdir /opt/hostedtoolcache \
 COPY ./scripts/gh_entrypoint.sh ./scripts/logger.bash /usr/bin/
 RUN chmod +x /usr/bin/gh_entrypoint.sh /usr/bin/logger.bash
 
-# Add the Python "User Script Directory" to the PATH
-ENV PATH="${PATH}:${HOME}/.local/bin"
+# Add the Go and Python "User Script Directory" to the PATH
+ENV GOPATH=$HOME/go
+ENV PATH="${PATH}:${HOME}/.local/bin:/usr/local/go/bin:$GOPATH/bin"
 ENV ImageOS=ubuntu22
 
 RUN echo "PATH=${PATH}" > /etc/environment \
