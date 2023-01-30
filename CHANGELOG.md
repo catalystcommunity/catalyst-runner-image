@@ -1,3 +1,10 @@
+## [1.3.1](https://github.com/catalystsquad/catalyst-runner-image/compare/v1.3.0...v1.3.1) (2023-01-30)
+
+
+### Bug Fixes
+
+* update runner version to get new packages for security updates ([#16](https://github.com/catalystsquad/catalyst-runner-image/issues/16)) ([bf49884](https://github.com/catalystsquad/catalyst-runner-image/commit/bf49884576fc09b09f8601068b6f4b1779285300))
+
 # [1.3.0](https://github.com/catalystsquad/catalyst-runner-image/compare/v1.2.2...v1.3.0) (2023-01-20)
 
 
