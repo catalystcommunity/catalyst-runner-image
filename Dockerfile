@@ -4,11 +4,11 @@ LABEL maintainer="Catalyst Squad <community@catalystsquad.com>"
 
 WORKDIR /workspace
 ARG TARGETPLATFORM=amd64
-ARG RUNNER_VERSION=2.299.2
+ARG RUNNER_VERSION=2.308.0
 ARG DOCKER_CHANNEL=stable
-ARG DOCKER_VERSION=20.10.12
+ARG DOCKER_VERSION=24.0.5
 ARG DUMB_INIT_VERSION=1.2.5
-ARG GO_VERSION=1.19.5
+ARG GO_VERSION=1.20.7
 
 # Get all the tools in and up to date
 ENV DEBIAN_FRONTEND=noninteractive
@@ -60,7 +60,7 @@ RUN pip3 install --upgrade pip
 RUN pip3 install setuptools watchdog poetry yq yamllint
 
 # Get all the node tooling in with 16.x
-RUN curl -sL https://deb.nodesource.com/setup_16.x | bash -
+RUN curl -sL https://deb.nodesource.com/setup_18.x | bash -
 RUN apt-get install -y nodejs
 
 RUN npm install -g yarn
