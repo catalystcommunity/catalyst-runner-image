@@ -11,7 +11,7 @@ jobs:
     name: Validate Conventional Commits PR
     runs-on: ubuntu-latest
     steps:
-      - uses: crazy-max/ghaction-dump-context@v1
+      - uses: crazy-max/ghaction-dump-context@v2
       - uses: catalystsquad/action-validate-conventional-commits-pr@v1
   test-build:
     name: Test the Build succeeds
@@ -19,18 +19,27 @@ jobs:
     needs:
       - conventional-commits-pr
     steps:
-    - name: Checkout
-      uses: actions/checkout@v3
-    - name: Setup Docker buildx
-      uses: docker/setup-buildx-action@v1
-      with:
-        install: true
-    - name: Build image
-      id: build-image
-      uses: docker/build-push-action@v2
-      with:
-        # tags: ${{ steps.get-tags.outputs.tags }}
-        push: false
-        cache-from: type=gha,mode=max
-        cache-to: type=gha,mode=max
-        no-cache: ${{ contains(github.event.head_commit.message, 'no-cache') }}
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.AUTOMATION_PAT }}
+          fetch-depth: 0
+      - name: Semver Tags Run
+        id: semver-tags
+        run: |
+          ./.github/scripts/do-image-release.sh dryrun
+      - name: Setup Docker buildx
+        uses: docker/setup-buildx-action@v1
+        with:
+          install: true
+      - name: Build image
+        id: build-image
+        uses: docker/build-push-action@v4
+        with:
+          # tags: ${{ steps.get-tags.outputs.tags }}
+          context: .
+          push: false
+          cache-from: type=gha,mode=max
+          cache-to: type=gha,mode=max
+          no-cache: ${{ contains(github.event.head_commit.message, 'no-cache') }}
+          file: Dockerfile
