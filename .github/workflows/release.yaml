@@ -63,7 +63,7 @@ jobs:
         with:
           context: .
           file: Dockerfile
-          tags: latest,${{ steps.meta.outputs.tags }}
+          tags: quay.io/catalystsquad/catalyst-runner-image:latest,${{ steps.meta.outputs.tags }}
           push: true
           cache-from: type=gha,mode=max
           cache-to: type=gha,mode=max
