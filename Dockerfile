@@ -1,5 +1,4 @@
 FROM ubuntu:latest
-
 LABEL maintainer="Catalyst Squad <community@catalystsquad.com>"
 
 WORKDIR /workspace
