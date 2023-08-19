@@ -45,9 +45,8 @@ fullrun() {
     fi
     # If we're here, we have a thing to publish
     RELEASED_CHANGES="true"
-    IFS='/' read -r DIR NEW_TAG <<< ${NEW_TAGS_ARRAY[i]}
     LAST_VERSION=${LAST_TAGS_ARRAY[i]}
-    NEW_VERSION=${NEW_TAG#*v}
+    NEW_VERSION=${NEW_TAGS_ARRAY[i]#*v}
     
     # Now update all the things
     # We use the "ci:" prefix because it doesn't count as a version bump
