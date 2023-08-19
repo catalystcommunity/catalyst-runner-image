@@ -51,14 +51,15 @@ jobs:
           images: |
             quay.io/catalystsquad/catalyst-runner-image
           # generate Docker tags based on the following events/attributes
+          # tags: |
+          #   type=semver,pattern=${{ steps.semver-tags.outputs.New_release_version }}
+          #   type=semver,pattern=${{ steps.semver-tags.outputs.New_release_major_version }}.${{ steps.semver-tags.outputs.New_release_minor_version }}
+          #   type=semver,pattern=${{ steps.semver-tags.outputs.New_release_major_version }}
           tags: |
-            type=schedule
-            type=ref,event=branch
-            type=ref,event=pr
-            type=semver,pattern=${{ steps.semver-tags.outputs.New_release_version }}
-            type=semver,pattern=${{ steps.semver-tags.outputs.New_release_major.version }}.${{ steps.semver-tags.outputs.New_release_minor.version }}
-            type=semver,pattern=${{ steps.semver-tags.outputs.New_release_major.version }}
-            type=sha
+            type=raw,value=latest
+            type=raw,value=${{ steps.semver-tags.outputs.New_release_version }}
+            type=raw,value=${{ steps.semver-tags.outputs.New_release_major_version }}.${{ steps.semver-tags.outputs.New_release_minor_version }}
+            type=raw,value=${{ steps.semver-tags.outputs.New_release_major_version }}
       - if: steps.semver-tags.outputs.RELEASED_CHANGES == 'true'
         name: Build and push image to Quay
         id: build-push-image
@@ -68,7 +69,7 @@ jobs:
         with:
           context: .
           file: Dockerfile
-          tags: quay.io/catalystsquad/catalyst-runner-image:latest,${{ steps.meta.outputs.tags }}
+          tags: ${{ steps.meta.outputs.tags }}
           push: true
           cache-from: type=gha,mode=max
           cache-to: type=gha,mode=max
