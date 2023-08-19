@@ -35,6 +35,7 @@ RUN apt update -y \
     netcat \
     openssh-client \
     parallel \
+    postgresql-client \
     python3 \
     python3-pip \
     dotnet-sdk-6.0 \
