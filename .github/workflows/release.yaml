@@ -9,6 +9,7 @@ on:
       - "Dockerfile"
 jobs:
   release:
+    if: github.event.pull_request.merged == true
     name: Release Image
     runs-on: ubuntu-latest
     outputs:
