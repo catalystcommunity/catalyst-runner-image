@@ -75,6 +75,8 @@ RUN curl -LO https://storage.googleapis.com/kubernetes-release/release/`curl -s 
 COPY ./scripts ./scripts
 RUN chmod +x ./scripts/*
 
+# Install Dotnet 8 SDK
+RUN ./scripts/install_dotnet8.sh
 # Install gcloud CLI
 RUN ./scripts/install_gcloud.sh
 # Install AWS CLI
