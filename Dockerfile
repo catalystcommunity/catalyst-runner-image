@@ -37,8 +37,6 @@ RUN apt update -y \
     postgresql-client \
     python3 \
     python3-pip \
-    dotnet-sdk-6.0 \
-    aspnetcore-runtime-6.0 \
     docker-compose \
     rsync \
     shellcheck \
@@ -76,7 +74,7 @@ COPY ./scripts ./scripts
 RUN chmod +x ./scripts/*
 
 # Install Dotnet 8 SDK
-RUN ./scripts/install_dotnet8.sh
+RUN ./scripts/install_dotnet.sh
 # Install gcloud CLI
 RUN ./scripts/install_gcloud.sh
 # Install AWS CLI
@@ -151,7 +149,7 @@ RUN chmod +x /usr/bin/gh_entrypoint.sh /usr/bin/logger.bash
 
 # Add the Go and Python "User Script Directory" to the PATH
 ENV GOPATH=$HOME/go
-ENV PATH="${PATH}:${HOME}/.local/bin:/usr/local/go/bin:$GOPATH/bin"
+ENV PATH="${PATH}:${HOME}/.local/bin:/usr/local/go/bin:$GOPATH/bin:/usr/share/dotnet"
 ENV ImageOS=ubuntu22
 
 RUN echo "PATH=${PATH}" > /etc/environment \
