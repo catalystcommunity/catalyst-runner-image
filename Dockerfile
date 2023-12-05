@@ -7,7 +7,7 @@ ARG RUNNER_VERSION=2.308.0
 ARG DOCKER_CHANNEL=stable
 ARG DOCKER_VERSION=24.0.5
 ARG DUMB_INIT_VERSION=1.2.5
-ARG GO_VERSION=1.20.7
+ARG GO_VERSION=1.21.4
 
 # Get all the tools in and up to date
 ENV DEBIAN_FRONTEND=noninteractive
@@ -50,6 +50,7 @@ RUN apt update -y \
     wget \
     zip \
     zstd \
+    make \
     && ln -sf /usr/bin/python3 /usr/bin/python \
     && ln -sf /usr/bin/pip3 /usr/bin/pip \
     && rm -rf /var/lib/apt/lists/*
