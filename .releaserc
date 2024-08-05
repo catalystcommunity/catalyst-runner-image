@@ -18,7 +18,7 @@
     "@semantic-release/github",
     ["@codedependant/semantic-release-docker", {
         "dockerTags": ["latest", "{{version}}", "{{major}}-latest", "{{major}}.{{minor}}"],
-        "dockerProject": "catalystsquad",
+        "dockerProject": "catalystcommunity",
         "dockerImage": "catalyst-runner-image",
         "dockerRegistry": "quay.io"
     }]

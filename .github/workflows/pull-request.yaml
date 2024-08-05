@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: crazy-max/ghaction-dump-context@v2
-      - uses: catalystsquad/action-validate-conventional-commits-pr@v1
+      - uses: catalystcommunity/action-validate-conventional-commits-pr@v1
   test-build:
     name: Test the Build succeeds
     runs-on: ubuntu-latest
@@ -26,7 +26,7 @@ jobs:
           fetch-depth: 0
       - name: Get semver-tags
         run: |
-          wget -c https://github.com/catalystsquad/semver-tags/releases/download/v0.3.2/semver-tags.tar.gz -O - | tar -xz
+          wget -c https://github.com/catalystcommunity/semver-tags/releases/download/v0.3.2/semver-tags.tar.gz -O - | tar -xz
       - name: Semver Tags Run
         id: semver-tags
         run: |

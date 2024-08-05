@@ -31,7 +31,7 @@ jobs:
           git config --global user.email "<engineering@catalystsquad.com>"
       - name: Get semver-tags
         run: |
-          wget -c https://github.com/catalystsquad/semver-tags/releases/download/v0.3.2/semver-tags.tar.gz -O - | tar -xz
+          wget -c https://github.com/catalystcommunity/semver-tags/releases/download/v0.3.2/semver-tags.tar.gz -O - | tar -xz
       - name: Semver Tags Run
         id: semver-tags
         run: |
@@ -50,7 +50,7 @@ jobs:
         with:
           # list of Docker images to use as base name for tags
           images: |
-            quay.io/catalystsquad/catalyst-runner-image
+            quay.io/catalystcommunity/catalyst-runner-image
           # generate Docker tags based on the following events/attributes
           # tags: |
           #   type=semver,pattern=${{ steps.semver-tags.outputs.New_release_version }}
