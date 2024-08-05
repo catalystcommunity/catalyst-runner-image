@@ -1,5 +1,5 @@
 FROM ubuntu:latest
-LABEL maintainer="Catalyst Squad <community@catalystsquad.com>"
+LABEL maintainer="Catalyst Community <catalyst-community@todandlorna.com>"
 
 WORKDIR /workspace
 ARG TARGETPLATFORM=amd64
