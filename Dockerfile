@@ -31,7 +31,7 @@ RUN apt update -y \
     jq \
     libunwind8 \
     locales \
-    netcat \
+    netcat-traditional \
     openssh-client \
     parallel \
     postgresql-client \
