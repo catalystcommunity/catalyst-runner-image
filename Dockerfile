@@ -165,5 +165,4 @@ RUN echo "PATH=${PATH}" > /etc/environment \
 USER runner
 
 ENTRYPOINT ["/usr/local/bin/dumb-init", "--"]
-
 CMD ["gh_entrypoint.sh"]
