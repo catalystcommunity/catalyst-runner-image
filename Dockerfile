@@ -30,6 +30,7 @@ RUN apt update -y \
     iputils-ping \
     jq \
     libunwind8 \
+    libyaml-dev \
     locales \
     netcat-traditional \
     openssh-client \
@@ -55,10 +56,10 @@ RUN apt update -y \
     && ln -sf /usr/bin/pip3 /usr/bin/pip \
     && rm -rf /var/lib/apt/lists/*
 
-RUN pip3 install --upgrade pip
-RUN pip3 install setuptools watchdog poetry yq yamllint
+#RUN pip3 install --upgrade --break-system-packages pip
+RUN pip3 install --break-system-packages setuptools watchdog poetry yq yamllint
 
-# Get all the node tooling in with 16.x
+# Get all the node tooling in with 18.x
 RUN curl -sL https://deb.nodesource.com/setup_18.x | bash -
 RUN apt-get install -y nodejs
 
@@ -72,7 +73,6 @@ RUN curl -LO https://storage.googleapis.com/kubernetes-release/release/`curl -s 
 
 # Any custom utilities can be brought over from here and access via the scripts directory
 COPY ./scripts ./scripts
-RUN chmod +x ./scripts/*
 
 # Install Dotnet 8 SDK
 RUN ./scripts/install_dotnet.sh
@@ -110,7 +110,7 @@ RUN set -vx; \
     && tar zxvf docker.tgz \
     && install -o root -g root -m 755 docker/docker /usr/local/bin/docker \
     && rm -rf docker docker.tgz \
-    && adduser --disabled-password --gecos "" --uid 1000 runner \
+    && adduser --disabled-password --gecos "" --uid 1001 runner \
     && groupadd docker \
     && usermod -aG sudo runner \
     && usermod -aG docker runner \
@@ -121,6 +121,8 @@ ENV HOME=/workspace
 
 COPY scripts/install_actions.sh /actions-runner/
 
+# This line is normally used to get the install dependencies from myoung34's repo, but we install them manually beforehand, so it is replaced with a no-op
+#    && sed -i.bak 's/.\/bin\/installdependencies.sh/wget https:\/\/raw.githubusercontent.com\/myoung34\/runner\/main\/src\/Misc\/layoutbin\/installdependencies.sh -O .\/bin\/installdependencies.sh; bash .\/bin\/installdependencies.sh/g' /actions-runner/install_actions.sh \
 ENV RUNNER_ASSETS_DIR=/runnertmp
 RUN export ARCH=$(echo ${TARGETPLATFORM} | cut -d / -f2) \
     && if [ "$ARCH" = "amd64" ] || [ "$ARCH" = "x86_64" ] || [ "$ARCH" = "i386" ]; then export ARCH=x64 ; fi \
@@ -128,14 +130,18 @@ RUN export ARCH=$(echo ${TARGETPLATFORM} | cut -d / -f2) \
     && cd "$RUNNER_ASSETS_DIR" \
     # Comment-out the below curl invocation when you use your own build of actions/runner
     && curl -f -L -o runner.tar.gz https://github.com/actions/runner/releases/download/v${RUNNER_VERSION}/actions-runner-linux-${ARCH}-${RUNNER_VERSION}.tar.gz \
+    && ls -al ./ \
     && tar xzf ./runner.tar.gz \
     && rm runner.tar.gz \
     && chmod +x /actions-runner/install_actions.sh \
-    && sed -i.bak 's/.\/bin\/installdependencies.sh/wget https:\/\/raw.githubusercontent.com\/myoung34\/runner\/main\/src\/Misc\/layoutbin\/installdependencies.sh -O .\/bin\/installdependencies.sh; bash .\/bin\/installdependencies.sh/g' /actions-runner/install_actions.sh \
+    && apt-get install -y --no-install-recommends \
+      liblttng-ust1t64 \
+      libkrb5-3 \
+      zlib1g \
+    && sed -i.bak 's/.\/bin\/installdependencies.sh/echo "Dependencies are installed in external command previously"/g' /actions-runner/install_actions.sh \
     && /actions-runner/install_actions.sh ${RUNNER_VERSION} ${TARGETPLATFORM} \
     && rm /actions-runner/install_actions.sh \
     && mv ./externals ./externalstmp \
-    && apt-get install -y libyaml-dev \
     && rm -rf /var/lib/apt/lists/*
 
 ENV RUNNER_TOOL_CACHE=/opt/hostedtoolcache
