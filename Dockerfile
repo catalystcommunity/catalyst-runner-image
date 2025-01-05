@@ -65,6 +65,9 @@ RUN apt-get install -y nodejs
 
 RUN npm install -g yarn
 
+# Install uv for python tooling
+RUN curl -LsSf https://astral.sh/uv/0.5.14/install.sh | sh
+
 # Install Go
 RUN wget https://golang.org/dl/go${GO_VERSION}.linux-amd64.tar.gz && tar -xf go${GO_VERSION}.linux-amd64.tar.gz && chown -R root:root ./go && mv -v go /usr/local
 
